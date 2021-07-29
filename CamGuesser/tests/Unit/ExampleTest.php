@@ -2,7 +2,11 @@
 
 namespace Tests\Unit;
 
-use PHPUnit\Framework\TestCase;
+use App\Http\Controllers\APIHandler;
+use Tests\TestCase;
+
+use Illuminate\Support\Facades\Http;
+use Illuminate\Http\Client\Response;
 
 class ExampleTest extends TestCase
 {
@@ -15,4 +19,12 @@ class ExampleTest extends TestCase
     {
         $this->assertTrue(true);
     }
+
+    public function test_if_api_connection_successful()
+    {
+        $api = new APIHandler();
+        self::assertTrue($api->connect());
+    }
+
+
 }
