@@ -21,9 +21,9 @@
         </style>
     </head>
     <body class="antialiased">
-    {{$list[0]}}
 
-    <iframe src="https://webcams.windy.com/webcams/stream/1485691420?autoplay=1" width="640" height="360" frameborder="0" allow="autoplay; fullscreen" allowfullscreen></iframe>
+
+    <iframe src="{{$url}}?autoplay=1" width="640" height="360" frameborder="0" allow="autoplay; fullscreen" allowfullscreen></iframe>
 
     </body>
 </html>

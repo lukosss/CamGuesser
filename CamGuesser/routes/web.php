@@ -13,4 +13,4 @@ use Illuminate\Support\Facades\Route;
 |
 */
 
-Route::get('/', [\App\Http\Controllers\APIHandler::class, 'getAllCountries']);
+Route::get('/', [\App\Http\Controllers\APIHandler::class, 'index']);
