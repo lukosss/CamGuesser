@@ -10,21 +10,17 @@ use Illuminate\Http\Client\Response;
 
 class ExampleTest extends TestCase
 {
-    /**
-     * A basic test example.
-     *
-     * @return void
-     */
-    public function test_example()
-    {
-        $this->assertTrue(true);
-    }
 
-    public function test_if_api_connection_successful()
+    public function test_if_api_connection_successful(): void
     {
         $api = new APIHandler();
         self::assertTrue($api->connect());
     }
 
+    public function test_if_api_returns_list_of_all_countries(): void
+    {
+        $api = new APIHandler();
+        self::assertArrayHasKey('result',$api->getAllCountries());
+    }
 
 }
