@@ -2,7 +2,6 @@
 
 namespace App\Http\Controllers;
 
-use Illuminate\Contracts\View\View;
 use Illuminate\Http\Client\PendingRequest;
 use Illuminate\Support\Facades\Http;
 
@@ -36,10 +35,16 @@ class APIController extends Controller
         return $response->ok();
     }
 
-    public function getAllCountries(): array
+    public function getAllCountries() : array
     {
         $response = $this->httpWithHeaders()->get($this->getRequestToApi('?show=countries'));
-        return $response->json();
+        $countries = $response->json()['result']['countries'];
+        $filteredCountries = [];
+        foreach ($countries as $country)
+        {
+            $filteredCountries[] = $country['name'];
+        }
+        return $filteredCountries;
     }
 
     public function getOneRandomCameraId(): int
@@ -48,12 +53,18 @@ class APIController extends Controller
         return $response->json()['result']['webcams'][0]['id'];
     }
 
-    public function getRandomCameraPlayerEmbed(): string
+    public function getRandomCameraPlayerEmbed(int $randomCameraId): string
     {
-        $CamId = $this->getOneRandomCameraId();
-        $response = $this->httpWithHeaders()->get($this->getRequestToApi("/webcam=$CamId?show=webcams:player"));
+        $response = $this->httpWithHeaders()->get($this->getRequestToApi("/webcam=$randomCameraId?show=webcams:player"));
         return $response->json()['result']['webcams'][0]['player']['day']['embed'];
+    }
+
+    public function getDisplayedCameraCountry(int $randomCameraId): string
+    {
+        $response = $this->httpWithHeaders()->get($this->getRequestToApi("/webcam=$randomCameraId?show=countries"));
+        return $response->json()['result']['countries'][0]['name'];
     }
 
 
 }
+

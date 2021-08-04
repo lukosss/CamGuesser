@@ -11,7 +11,9 @@ class HomeController extends Controller
     public function index(): View
     {
         $api = new APIController();
-        $url = $api->getRandomCameraPlayerEmbed();
-        return view('welcome',compact('url'));
+        $randomCamId = $api->getOneRandomCameraId();
+        $url = $api->getRandomCameraPlayerEmbed($randomCamId);
+        $country = $api->getDisplayedCameraCountry($randomCamId);
+        return view('welcome',compact('url','country'));
     }
 }
