@@ -22,10 +22,10 @@
     </head>
     <body class="antialiased">
 
-
-    <iframe src="{{$url}}?autoplay=1" width="640" height="360" frameborder="0" allow="autoplay; fullscreen" allowfullscreen></iframe>
-
-    <h1>Country: {{$country}}</h1>
+        <div class="text-center">
+            <iframe src="{{$url}}?autoplay=1" width="860" height="480" frameborder="0" allow="autoplay; fullscreen" allowfullscreen></iframe>
+            <h1>Country: {{$country}}</h1>
+        </div>
 
     </body>
 </html>
