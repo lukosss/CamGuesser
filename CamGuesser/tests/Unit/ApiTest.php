@@ -14,6 +14,7 @@ class ApiTest extends TestCase
 
     public function setUp(): void
     {
+        parent::setUp();
         $this->api = new APIController();
     }
 
