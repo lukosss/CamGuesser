@@ -37433,7 +37433,8 @@ var render = function() {
       return _c(
         "button",
         {
-          staticClass: "btn btn-lg btn-outline-info",
+          staticClass: "btn btn-lg btn-outline-info ml-2",
+          attrs: { id: answer },
           on: {
             click: function($event) {
               return _vm.checkAnswer(answer)

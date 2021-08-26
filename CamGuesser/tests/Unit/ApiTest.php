@@ -20,7 +20,7 @@ class ApiTest extends TestCase
 
     public function test_if_api_connection_successful(): void
     {
-        self::assertTrue($this->api->connect());
+        self::assertTrue($this->api->checkConnection());
     }
 
     public function test_if_api_returns_list_of_all_countries(): void

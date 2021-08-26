@@ -1,6 +1,6 @@
 <template>
     <div>
-            <button v-for="answer in answers" class="btn btn-lg btn-outline-info"
+            <button v-for="answer in answers" class="btn btn-lg btn-outline-info ml-2" :id="answer"
                     @click="checkAnswer(answer)">
                 {{answer}}
             </button>

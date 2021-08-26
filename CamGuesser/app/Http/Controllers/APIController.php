@@ -29,7 +29,7 @@ class APIController extends Controller
         return self::GET_REQUEST_URL . $requestParameters;
     }
 
-    public function connect(): bool
+    public function checkConnection(): bool
     {
         $response = $this->httpWithHeaders()->get($this->getRequestToApi());
         return $response->ok();
