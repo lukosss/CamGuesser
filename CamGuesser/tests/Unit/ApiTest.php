@@ -9,7 +9,7 @@ use Tests\TestCase;
 class ApiTest extends TestCase
 {
 
-    private const RANDOM_CAMERA_ID = 1475827938;
+    private const FAKE_RANDOM_CAMERA_ID = 1234567890;
 
     private APIController $api;
 
@@ -22,7 +22,7 @@ class ApiTest extends TestCase
     public function test_should_return_array_of_all_available_countries(): void
     {
         Http::fake([
-            'https://api.windy.com/api/webcams/v2/list?show=countries' => Http::response(
+            'https://api.windy.com/api/webcams/v2/list*' => Http::response(
                 ['result' => ['countries' => [['name'=>'Fake Switzerland','id'=>'CH'],['name'=>'Fake Germany','id'=>'DE']]]]
             )
         ]);
@@ -33,21 +33,32 @@ class ApiTest extends TestCase
     public function test_should_return_one_random_webcam_id(): void
     {
         Http::fake([
-            'https://api.windy.com/api/webcams/v2/list/orderby=random/limit=1' => Http::response(
-                ['result' => ['webcams' => [['id'=>1475827938]]]]
+            'https://api.windy.com/api/webcams/v2/list*' => Http::response(
+                ['result' => ['webcams' => [['id'=>self::FAKE_RANDOM_CAMERA_ID]]]]
             )
         ]);
 
-        self::assertSame(self::RANDOM_CAMERA_ID,$this->api->getOneRandomCameraId());
+        self::assertSame(self::FAKE_RANDOM_CAMERA_ID,$this->api->getOneRandomCameraId());
     }
 
-    public function test_if_api_returns_one_random_webcam_player_embed_link(): void
+    public function test_should_return_one_random_webcam_player_embed_link(): void
     {
-        self::assertIsString($this->api->getRandomCameraPlayerEmbed(self::RANDOM_CAMERA_ID));
+        Http::fake([
+            "https://api.windy.com/api/webcams/v2/list*" => Http::response(
+                ['result' => ['webcams' => [['player'=> ['day' => [
+                    'embed' => 'https://webcams.windy.com/webcams/public/embed/player/1234567890/FAKELINK'
+                ]]]]]]
+            )
+        ]);
+
+        self::assertSame(
+            'https://webcams.windy.com/webcams/public/embed/player/1234567890/FAKELINK',
+            $this->api->getRandomCameraPlayerEmbed(self::FAKE_RANDOM_CAMERA_ID)
+        );
     }
 
-    public function test_if_api_returns_displayed_cameras_country(): void
-    {
-        self::assertContains($this->api->getDisplayedCameraCountry(self::RANDOM_CAMERA_ID),$this->api->getAllCountries());
-    }
+//    public function test_if_api_returns_displayed_cameras_country(): void
+//    {
+//        self::assertContains($this->api->getDisplayedCameraCountry(self::FAKE_RANDOM_CAMERA_IDRANDOM_CAMERA_ID),$this->api->getAllCountries());
+//    }
 }
