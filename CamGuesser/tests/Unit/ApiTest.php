@@ -57,8 +57,14 @@ class ApiTest extends TestCase
         );
     }
 
-//    public function test_if_api_returns_displayed_cameras_country(): void
-//    {
-//        self::assertContains($this->api->getDisplayedCameraCountry(self::FAKE_RANDOM_CAMERA_IDRANDOM_CAMERA_ID),$this->api->getAllCountries());
-//    }
+    public function test_should_return_displayed_cameras_country(): void
+    {
+        Http::fake([
+            "https://api.windy.com/api/webcams/v2/list*" => Http::response(
+                ['result' => ['countries' => [['name'=> 'FAKE LITHUANIA']]]]
+            )
+        ]);
+
+        self::assertSame('FAKE LITHUANIA',$this->api->getDisplayedCameraCountry(self::FAKE_RANDOM_CAMERA_ID));
+    }
 }
