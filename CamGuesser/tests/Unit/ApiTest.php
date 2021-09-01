@@ -32,7 +32,13 @@ class ApiTest extends TestCase
 
     public function test_should_return_one_random_webcam_id(): void
     {
-        self::assertIsInt($this->api->getOneRandomCameraId());
+        Http::fake([
+            'https://api.windy.com/api/webcams/v2/list/orderby=random/limit=1' => Http::response(
+                ['result' => ['webcams' => [['id'=>1475827938]]]]
+            )
+        ]);
+
+        self::assertSame(self::RANDOM_CAMERA_ID,$this->api->getOneRandomCameraId());
     }
 
     public function test_if_api_returns_one_random_webcam_player_embed_link(): void
