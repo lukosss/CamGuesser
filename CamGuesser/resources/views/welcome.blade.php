@@ -25,12 +25,12 @@
 
         <div class="text-center">
             <iframe src="{{$url}}?autoplay=1" width="860" height="480" allow="autoplay" allowfullscreen></iframe>
-            <h1>Country: {{$country}}</h1>
+            <h1>Country: {{$displayedCameraCountry}}</h1>
 
             <div id="app">
                 <example-component
                     v-bind:answers="{{  json_encode($answers) }}"
-                    v-bind:correct="{{  json_encode($country) }}"
+                    v-bind:correct="{{  json_encode($displayedCameraCountry) }}"
 
                 ></example-component>
             </div>
