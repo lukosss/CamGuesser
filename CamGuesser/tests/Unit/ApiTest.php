@@ -3,6 +3,7 @@
 namespace Tests\Unit;
 
 use App\Http\Controllers\APIController;
+use Illuminate\Support\Facades\Http;
 use Tests\TestCase;
 
 class ApiTest extends TestCase
@@ -18,17 +19,18 @@ class ApiTest extends TestCase
         $this->api = new APIController();
     }
 
-    public function test_if_api_connection_successful(): void
+    public function test_should_return_array_of_all_available_countries(): void
     {
-        self::assertTrue($this->api->checkConnection());
+        Http::fake([
+            'https://api.windy.com/api/webcams/v2/list?show=countries' => Http::response(
+                ['result' => ['countries' => [['name'=>'Fake Switzerland','id'=>'CH'],['name'=>'Fake Germany','id'=>'DE']]]]
+            )
+        ]);
+
+        self::assertContains('Fake Germany',$this->api->getAllCountries());
     }
 
-    public function test_if_api_returns_list_of_all_countries(): void
-    {
-        self::assertIsArray($this->api->getAllCountries());
-    }
-
-    public function test_if_api_returns_one_random_webcam_id(): void
+    public function test_should_return_one_random_webcam_id(): void
     {
         self::assertIsInt($this->api->getOneRandomCameraId());
     }

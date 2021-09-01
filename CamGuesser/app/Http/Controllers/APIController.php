@@ -29,12 +29,6 @@ class APIController extends Controller
         return self::GET_REQUEST_URL . $requestParameters;
     }
 
-    public function checkConnection(): bool
-    {
-        $response = $this->httpWithHeaders()->get($this->getRequestToApi());
-        return $response->ok();
-    }
-
     public function getAllCountries() : array
     {
         $response = $this->httpWithHeaders()->get($this->getRequestToApi('?show=countries'));
@@ -64,7 +58,6 @@ class APIController extends Controller
         $response = $this->httpWithHeaders()->get($this->getRequestToApi("/webcam=$randomCameraId?show=countries"));
         return $response->json()['result']['countries'][0]['name'];
     }
-
 
 }
 
