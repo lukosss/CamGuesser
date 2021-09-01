@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use Illuminate\Http\Client\PendingRequest;
+use Illuminate\Http\Client\Response;
 use Illuminate\Support\Facades\Http;
 
 
@@ -20,22 +21,22 @@ class APIController extends Controller
         ]);
     }
 
-    private function getRequestToApi($requestParameters = null): string
+    private function urlWithParameters($requestParameters = null): string
     {
-        if ($requestParameters === null) {
-            return self::GET_REQUEST_URL;
-        }
-
         return self::GET_REQUEST_URL . $requestParameters;
     }
 
-    public function getAllCountries() : array
+    private function getRequest($requestParameters): Response
     {
-        $response = $this->httpWithHeaders()->get($this->getRequestToApi('?show=countries'));
+        return $this->httpWithHeaders()->get($this->urlWithParameters($requestParameters));
+    }
+
+    public function getAllCountries(): array
+    {
+        $response = $this->getRequest('?show=countries');
         $countries = $response->json()['result']['countries'];
         $filteredCountries = [];
-        foreach ($countries as $country)
-        {
+        foreach ($countries as $country) {
             $filteredCountries[] = $country['name'];
         }
         return $filteredCountries;
@@ -43,21 +44,20 @@ class APIController extends Controller
 
     public function getOneRandomCameraId(): int
     {
-        $response = $this->httpWithHeaders()->get($this->getRequestToApi('/orderby=random/limit=1'));
+        $response = $this->getRequest('/orderby=random/limit=1');
         return $response->json()['result']['webcams'][0]['id'];
     }
 
     public function getRandomCameraPlayerEmbed(int $randomCameraId): string
     {
-        $response = $this->httpWithHeaders()->get($this->getRequestToApi("/webcam=$randomCameraId?show=webcams:player"));
+        $response = $this->getRequest("/webcam=$randomCameraId?show=webcams:player");
         return $response->json()['result']['webcams'][0]['player']['day']['embed'];
     }
 
     public function getDisplayedCameraCountry(int $randomCameraId): string
     {
-        $response = $this->httpWithHeaders()->get($this->getRequestToApi("/webcam=$randomCameraId?show=countries"));
+        $response = $this->getRequest("/webcam=$randomCameraId?show=countries");
         return $response->json()['result']['countries'][0]['name'];
     }
 
 }
-
