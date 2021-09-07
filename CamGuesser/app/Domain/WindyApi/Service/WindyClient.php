@@ -1,13 +1,13 @@
 <?php
 
-namespace App\Http\Controllers;
+namespace App\Domain\WindyApi\Service;
 
 use Illuminate\Http\Client\PendingRequest;
 use Illuminate\Http\Client\Response;
 use Illuminate\Support\Facades\Http;
 
 
-class APIController extends Controller
+class WindyClient
 {
 
     private const API_KEY = '9nStogxL7jBxQ2J5zd9utQyeqGROPCTE';

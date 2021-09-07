@@ -2,7 +2,7 @@
 
 namespace Tests\Unit;
 
-use App\Http\Controllers\APIController;
+use App\Domain\WindyApi\Service\WindyClient;
 use Illuminate\Support\Facades\Http;
 use Tests\TestCase;
 
@@ -12,12 +12,12 @@ class ApiTest extends TestCase
     private const FAKE_RANDOM_CAMERA_ID = 1234567890;
     private const REQUEST_URL = 'https://api.windy.com/api/webcams/v2/list*';
 
-    private APIController $api;
+    private WindyClient $api;
 
     public function setUp(): void
     {
         parent::setUp();
-        $this->api = new APIController();
+        $this->api = new WindyClient();
     }
 
     public function test_should_return_array_of_all_available_countries(): void
