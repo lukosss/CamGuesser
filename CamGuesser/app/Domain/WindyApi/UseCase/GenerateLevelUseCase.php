@@ -4,7 +4,7 @@ namespace App\Domain\WindyApi\UseCase;
 
 use App\Domain\WindyApi\Dto\GeneratedQuestion;
 use App\Domain\WindyApi\Service\AnswerGenerator;
-use App\Domain\WindyApi\Service\CameraRepository;
+use App\Domain\WindyApi\Repository\CameraRepository;
 
 class GenerateLevelUseCase
 {
