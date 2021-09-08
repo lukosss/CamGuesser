@@ -2,25 +2,25 @@
 
 namespace App\Http\Controllers;
 
-use App\Domain\WindyApi\UseCase\PickRandomCameraAndGenerateAnswers;
+use App\Domain\WindyApi\UseCase\GenerateLevelUseCase;
 use Illuminate\Contracts\View\View;
 
 class HomeController extends Controller
 {
 
-    private PickRandomCameraAndGenerateAnswers $useCase;
+    private GenerateLevelUseCase $useCase;
 
     public function __construct()
     {
-        $this->useCase = new PickRandomCameraAndGenerateAnswers();
+        $this->useCase = new GenerateLevelUseCase();
     }
 
     public function index(): View
     {
-        $generatedQuestion = $this->useCase->generate();
-        $url = $generatedQuestion->getUrl();
-        $displayedCameraCountry = $generatedQuestion->getDisplayedCameraCountry();
-        $answers = $generatedQuestion->getAnswers();
+        $generatedLevel = $this->useCase->generate();
+        $url = $generatedLevel->getUrl();
+        $displayedCameraCountry = $generatedLevel->getDisplayedCameraCountry();
+        $answers = $generatedLevel->getAnswers();
 
         return view('welcome', compact('url', 'displayedCameraCountry', 'answers'));
     }
