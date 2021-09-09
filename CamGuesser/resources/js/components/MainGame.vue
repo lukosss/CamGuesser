@@ -10,7 +10,7 @@
 
 <script>
     export default {
-        name: 'Basic',
+        name: 'Game',
         props: ['answers','correct'],
         data: function() {
             return {

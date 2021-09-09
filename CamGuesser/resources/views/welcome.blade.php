@@ -24,15 +24,15 @@
     <body class="antialiased">
 
         <div class="text-center">
-            <iframe src="{{$url}}?autoplay=1" width="860" height="480" allow="autoplay" allowfullscreen></iframe>
+            <iframe src="{{$url}}?autoplay=1" width="860" height="480" allow="autoplay"></iframe>
             <h1>Country: {{$displayedCameraCountry}}</h1>
 
             <div id="app">
-                <example-component
+                <game-component
                     v-bind:answers="{{  json_encode($answers) }}"
                     v-bind:correct="{{  json_encode($displayedCameraCountry) }}"
 
-                ></example-component>
+                ></game-component>
             </div>
 
         </div>
