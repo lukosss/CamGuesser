@@ -8,6 +8,10 @@ require('./bootstrap');
 
 window.Vue = require('vue').default;
 
+import BootstrapVue from 'bootstrap-vue' //Importing
+
+Vue.use(BootstrapVue) // Telling Vue to use this in whole application
+
 /**
  * The following block of code may be used to automatically register your
  * Vue components. It will recursively scan this directory for the Vue
@@ -20,6 +24,7 @@ window.Vue = require('vue').default;
 // files.keys().map(key => Vue.component(key.split('/').pop().split('.')[0], files(key).default))
 
 Vue.component('game-component', require('./components/MainGame.vue').default);
+Vue.component('menu-component', require('./components/MainMenu.vue').default);
 
 /**
  * Next, we will create a fresh Vue application instance and attach it to
