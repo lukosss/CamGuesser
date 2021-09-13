@@ -8,6 +8,8 @@ require('./bootstrap');
 
 window.Vue = require('vue').default;
 
+import store from "./store"
+
 import BootstrapVue from 'bootstrap-vue' //Importing
 
 Vue.use(BootstrapVue) // Telling Vue to use this in whole application
@@ -33,5 +35,6 @@ Vue.component('menu-component', require('./components/MainMenu.vue').default);
  */
 
 const app = new Vue({
+    store,
     el: '#app',
 });
