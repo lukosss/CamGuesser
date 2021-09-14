@@ -3,7 +3,6 @@
 
 namespace App\Domain\WindyApi\UseCase;
 
-
 use App\Domain\WindyApi\Service\WindyClient;
 
 class GetOneRandomCameraIdUseCase

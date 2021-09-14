@@ -12,24 +12,19 @@ class CameraRepository
 {
 
     private GetOneRandomCameraIdUseCase $randomCameraId;
-    private GetRandomCameraPlayerUseCase $randomCameraPlayerEmbedLink;
-    private GetDisplayedCameraCountryUseCase $displayedCameraCountry;
+    private GetRandomCameraPlayerUseCase $randomCameraPlayer;
 
     public function __construct(GetOneRandomCameraIdUseCase $randomCameraId,
-                                GetRandomCameraPlayerUseCase $randomCameraPlayerEmbedLink,
-                                GetDisplayedCameraCountryUseCase $displayedCameraCountry)
+                                GetRandomCameraPlayerUseCase $randomCameraPlayer)
     {
         $this->randomCameraId = $randomCameraId;
-        $this->randomCameraPlayerEmbedLink = $randomCameraPlayerEmbedLink;
-        $this->displayedCameraCountry = $displayedCameraCountry;
+        $this->randomCameraPlayer = $randomCameraPlayer;
     }
 
     public function findRandomCamera(): Camera
     {
-        $selectedCameraId = $this->randomCameraId->get();
-        $url = $this->randomCameraPlayerEmbedLink->get($selectedCameraId);
-        $country = $this->displayedCameraCountry->get($selectedCameraId);
-        return new Camera($url, $selectedCameraId, $country);
+        $camera = $this->randomCameraPlayer->get($this->randomCameraId->get());
+        return new Camera($camera->getUrl(), $camera->getId(), $camera->getCountry());
     }
 
 }
