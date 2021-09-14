@@ -67,10 +67,8 @@
             },
             nextLevel() {
                 if (this.level > 4) {
-                    alert('Final Score: ' + this.totalScore);
-                    window.location.href = '/';
-                    localStorage.setItem("score", 0);
-                    localStorage.setItem("level", 0);
+                    alert('Final Score: ' + (this.totalScore + this.score));
+                    this.reset();
                 }
                 else {
                 localStorage.setItem("level", this.level)
