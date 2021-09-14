@@ -2,6 +2,7 @@
 
 namespace Tests\Unit;
 
+use App\Domain\WindyApi\Service\WindyClient;
 use App\Domain\WindyApi\UseCase\GetAllCountriesUseCase;
 use App\Domain\WindyApi\UseCase\GetDisplayedCameraCountryUseCase;
 use App\Domain\WindyApi\UseCase\GetOneRandomCameraIdUseCase;
@@ -15,6 +16,7 @@ class ApiTest extends TestCase
     private const FAKE_RANDOM_CAMERA_ID = 1234567890;
     private const REQUEST_URL = 'https://api.windy.com/api/webcams/v2/list*';
 
+    private WindyClient $windyClient;
     private GetAllCountriesUseCase $allCountries;
     private GetOneRandomCameraIdUseCase $randomCameraId;
     private GetRandomCameraPlayerUseCase $randomCameraPlayer;
@@ -23,10 +25,11 @@ class ApiTest extends TestCase
     public function setUp(): void
     {
         parent::setUp();
-        $this->allCountries = new GetAllCountriesUseCase();
-        $this->randomCameraId = new GetOneRandomCameraIdUseCase();
-        $this->randomCameraPlayer = new GetRandomCameraPlayerUseCase();
-        $this->displayedCamerasCountry = new GetDisplayedCameraCountryUseCase();
+        $this->windyClient = new WindyClient();
+        $this->allCountries = new GetAllCountriesUseCase($this->windyClient);
+        $this->randomCameraId = new GetOneRandomCameraIdUseCase($this->windyClient);
+        $this->randomCameraPlayer = new GetRandomCameraPlayerUseCase($this->windyClient);
+        $this->displayedCamerasCountry = new GetDisplayedCameraCountryUseCase($this->windyClient);
     }
 
     public function test_should_return_array_of_all_available_countries(): void
