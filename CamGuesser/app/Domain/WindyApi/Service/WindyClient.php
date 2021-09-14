@@ -25,7 +25,7 @@ class WindyClient
         return self::BASE_URL . $apiEndpoint;
     }
 
-    protected function getRequest($apiEndpoint): Response
+    public function getRequest($apiEndpoint): Response
     {
         return $this->httpClientWithHeaders()->get($this->baseUrlWithEndpoint($apiEndpoint));
     }

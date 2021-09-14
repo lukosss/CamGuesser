@@ -4,7 +4,7 @@
 namespace App\Domain\WindyApi\Dto;
 
 
-class RandomlySelectedCamera
+class Camera
 {
     private string $url;
     private int $id;

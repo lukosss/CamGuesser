@@ -10,9 +10,9 @@ class GameController extends Controller
 
     private GenerateLevelUseCase $useCase;
 
-    public function __construct()
+    public function __construct(GenerateLevelUseCase $useCase)
     {
-        $this->useCase = new GenerateLevelUseCase();
+        $this->useCase = $useCase;
     }
 
     public function index(): View

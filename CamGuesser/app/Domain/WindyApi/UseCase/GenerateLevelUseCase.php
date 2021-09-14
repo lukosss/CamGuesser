@@ -12,10 +12,10 @@ class GenerateLevelUseCase
     private CameraRepository $cameraRepository;
     private AnswerGenerator $answerGenerator;
 
-    public function __construct()
+    public function __construct(CameraRepository $cameraRepository, AnswerGenerator $answerGenerator)
     {
-        $this->cameraRepository = new CameraRepository();
-        $this->answerGenerator = new AnswerGenerator();
+        $this->cameraRepository = $cameraRepository;
+        $this->answerGenerator = $answerGenerator;
     }
 
     public function generate(): GeneratedQuestion
