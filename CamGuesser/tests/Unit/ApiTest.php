@@ -2,7 +2,10 @@
 
 namespace Tests\Unit;
 
-use App\Domain\WindyApi\Service\WindyClient;
+use App\Domain\WindyApi\UseCase\GetAllCountriesUseCase;
+use App\Domain\WindyApi\UseCase\GetDisplayedCameraCountryUseCase;
+use App\Domain\WindyApi\UseCase\GetOneRandomCameraIdUseCase;
+use App\Domain\WindyApi\UseCase\GetRandomCameraPlayerUseCase;
 use Illuminate\Support\Facades\Http;
 use Tests\TestCase;
 
@@ -12,12 +15,18 @@ class ApiTest extends TestCase
     private const FAKE_RANDOM_CAMERA_ID = 1234567890;
     private const REQUEST_URL = 'https://api.windy.com/api/webcams/v2/list*';
 
-    private WindyClient $api;
+    private GetAllCountriesUseCase $allCountries;
+    private GetOneRandomCameraIdUseCase $randomCameraId;
+    private GetRandomCameraPlayerUseCase $randomCameraPlayer;
+    private GetDisplayedCameraCountryUseCase $displayedCamerasCountry;
 
     public function setUp(): void
     {
         parent::setUp();
-        $this->api = new WindyClient();
+        $this->allCountries = new GetAllCountriesUseCase();
+        $this->randomCameraId = new GetOneRandomCameraIdUseCase();
+        $this->randomCameraPlayer = new GetRandomCameraPlayerUseCase();
+        $this->displayedCamerasCountry = new GetDisplayedCameraCountryUseCase();
     }
 
     public function test_should_return_array_of_all_available_countries(): void
@@ -30,7 +39,7 @@ class ApiTest extends TestCase
             )
         ]);
 
-        self::assertContains('Fake Germany', $this->api->getAllCountries());
+        self::assertContains('Fake Germany', $this->allCountries->get());
     }
 
     public function test_should_return_one_random_webcam_id(): void
@@ -41,7 +50,7 @@ class ApiTest extends TestCase
             )
         ]);
 
-        self::assertSame(self::FAKE_RANDOM_CAMERA_ID, $this->api->getOneRandomCameraId());
+        self::assertSame(self::FAKE_RANDOM_CAMERA_ID, $this->randomCameraId->get());
     }
 
     public function test_should_return_one_random_webcam_player_embed_link(): void
@@ -56,7 +65,7 @@ class ApiTest extends TestCase
 
         self::assertSame(
             'https://webcams.windy.com/webcams/public/embed/player/1234567890/FAKELINK',
-            $this->api->getRandomCameraPlayerEmbed(self::FAKE_RANDOM_CAMERA_ID)
+            $this->randomCameraPlayer->get(self::FAKE_RANDOM_CAMERA_ID)
         );
     }
 
@@ -68,6 +77,6 @@ class ApiTest extends TestCase
             )
         ]);
 
-        self::assertSame('Fake Lithuania', $this->api->getDisplayedCameraCountry(self::FAKE_RANDOM_CAMERA_ID));
+        self::assertSame('Fake Lithuania', $this->displayedCamerasCountry->get(self::FAKE_RANDOM_CAMERA_ID));
     }
 }
