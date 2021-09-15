@@ -2,7 +2,8 @@
 
 namespace App\Providers;
 
-use App\Domain\WindyApi\UseCase\GetOneRandomCameraIdUseCase;
+use App\Domain\WindyApi\Service\CountriesClient;
+use App\Domain\WindyApi\Service\IdClient;
 use App\Domain\WindyApi\UseCase\GetRandomCameraPlayerUseCase;
 use Illuminate\Support\ServiceProvider;
 
@@ -29,7 +30,11 @@ class AppServiceProvider extends ServiceProvider
             ->needs('$apiKey')
             ->give(config('windy.api_key'));
 
-        $this->app->when(GetOneRandomCameraIdUseCase::class)
+        $this->app->when(IdClient::class)
+            ->needs('$apiKey')
+            ->give(config('windy.api_key'));
+
+        $this->app->when(CountriesClient::class)
             ->needs('$apiKey')
             ->give(config('windy.api_key'));
     }

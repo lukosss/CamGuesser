@@ -1,15 +1,16 @@
 <?php
 
-
-namespace App\Domain\WindyApi\UseCase;
+namespace App\Domain\WindyApi\Service;
 
 use App\Application\Camera\IdDenormalizer;
 use App\Domain\WindyApi\Dto\Id;
 use App\Infrastructure\Http\Client as HttpClient;
 use Psr\Http\Message\ResponseInterface;
 
-class GetOneRandomCameraIdUseCase
+
+class IdClient
 {
+
     private const BASE_URL = 'https://api.windy.com/api/webcams/v2/list';
     private const GET_ID_ENDPOINT = "/orderby=random/limit=1";
 
@@ -43,4 +44,5 @@ class GetOneRandomCameraIdUseCase
             Id::class
         );
     }
+
 }

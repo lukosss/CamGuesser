@@ -4,13 +4,12 @@
 namespace App\Domain\WindyApi\Service;
 
 use App\Domain\WindyApi\Dto\GeneratedAnswers;
-use App\Domain\WindyApi\UseCase\GetAllCountriesUseCase;
 
 class AnswerGenerator
 {
-    private GetAllCountriesUseCase $useCase;
+    private CountriesClient $useCase;
 
-    public function __construct(GetAllCountriesUseCase $useCase)
+    public function __construct(CountriesClient $useCase)
     {
         $this->useCase = $useCase;
     }
@@ -18,11 +17,12 @@ class AnswerGenerator
     public function generate(string $country): GeneratedAnswers
     {
         $numberOfWrongAnswers = 3;
-        $allCountries = $this->useCase->get();
-        $answers = array_intersect_key($allCountries, array_flip(array_rand($allCountries, $numberOfWrongAnswers)));
+        $countryCollection = $this->useCase->getCountries()->getCountries();
+        $mappedCountries = array_map(static function($o) { return $o->getName();}, $countryCollection);
+        $answers = array_intersect_key($mappedCountries, array_flip(array_rand($mappedCountries, $numberOfWrongAnswers)));
 
         while (in_array($country, $answers, true)) {
-            $answers = array_intersect_key($allCountries, array_flip(array_rand($allCountries, $numberOfWrongAnswers)));
+            $answers = array_intersect_key($mappedCountries, array_flip(array_rand($mappedCountries, $numberOfWrongAnswers)));
         }
 
         $answers[] = $country;

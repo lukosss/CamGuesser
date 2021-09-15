@@ -4,16 +4,16 @@
 namespace App\Domain\WindyApi\Repository;
 
 use App\Domain\WindyApi\Dto\Camera;
-use App\Domain\WindyApi\UseCase\GetOneRandomCameraIdUseCase;
+use App\Domain\WindyApi\Service\IdClient;
 use App\Domain\WindyApi\UseCase\GetRandomCameraPlayerUseCase;
 
 class CameraRepository
 {
 
-    private GetOneRandomCameraIdUseCase $randomCameraId;
+    private IdClient $randomCameraId;
     private GetRandomCameraPlayerUseCase $randomCameraPlayer;
 
-    public function __construct(GetOneRandomCameraIdUseCase $randomCameraId,
+    public function __construct(IdClient $randomCameraId,
                                 GetRandomCameraPlayerUseCase $randomCameraPlayer)
     {
         $this->randomCameraId = $randomCameraId;
