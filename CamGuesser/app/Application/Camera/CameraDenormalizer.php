@@ -11,9 +11,9 @@ class CameraDenormalizer implements DenormalizerInterface
     public function denormalize($data, string $type, string $format = null, array $context = []): Camera
     {
         return new Camera(
-            $data['webcams'][0]['player']['day']['embed'],
-            $data['webcams'][0]['id'],
-            $data['webcams'][0]['location']['country']
+            $data['result']['webcams'][0]['player']['day']['embed'],
+            $data['result']['webcams'][0]['id'],
+            $data['result']['webcams'][0]['location']['country']
         );
     }
 
