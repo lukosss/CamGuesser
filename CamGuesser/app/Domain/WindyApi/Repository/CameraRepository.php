@@ -3,7 +3,7 @@
 
 namespace App\Domain\WindyApi\Repository;
 
-use App\Domain\WindyApi\Dto\RandomlySelectedCamera;
+use App\Domain\WindyApi\Dto\Camera;
 use App\Domain\WindyApi\UseCase\GetDisplayedCameraCountryUseCase;
 use App\Domain\WindyApi\UseCase\GetOneRandomCameraIdUseCase;
 use App\Domain\WindyApi\UseCase\GetRandomCameraPlayerUseCase;
@@ -12,22 +12,19 @@ class CameraRepository
 {
 
     private GetOneRandomCameraIdUseCase $randomCameraId;
-    private GetRandomCameraPlayerUseCase $randomCameraPlayerEmbedLink;
-    private GetDisplayedCameraCountryUseCase $displayedCameraCountry;
+    private GetRandomCameraPlayerUseCase $randomCameraPlayer;
 
-    public function __construct()
+    public function __construct(GetOneRandomCameraIdUseCase $randomCameraId,
+                                GetRandomCameraPlayerUseCase $randomCameraPlayer)
     {
-        $this->randomCameraId = new GetOneRandomCameraIdUseCase();
-        $this->randomCameraPlayerEmbedLink = new GetRandomCameraPlayerUseCase();
-        $this->displayedCameraCountry = new GetDisplayedCameraCountryUseCase();
+        $this->randomCameraId = $randomCameraId;
+        $this->randomCameraPlayer = $randomCameraPlayer;
     }
 
-    public function findRandomCamera(): RandomlySelectedCamera
+    public function findRandomCamera(): Camera
     {
-        $selectedCameraId = $this->randomCameraId->get();
-        $url = $this->randomCameraPlayerEmbedLink->get($selectedCameraId);
-        $country = $this->displayedCameraCountry->get($selectedCameraId);
-        return new RandomlySelectedCamera($url, $selectedCameraId, $country);
+        $camera = $this->randomCameraPlayer->get($this->randomCameraId->get());
+        return new Camera($camera->getUrl(), $camera->getId(), $camera->getCountry());
     }
 
 }

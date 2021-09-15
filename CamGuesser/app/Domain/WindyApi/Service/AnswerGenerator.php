@@ -8,11 +8,11 @@ use App\Domain\WindyApi\UseCase\GetAllCountriesUseCase;
 
 class AnswerGenerator
 {
-    private WindyClient $useCase;
+    private GetAllCountriesUseCase $useCase;
 
-    public function __construct()
+    public function __construct(GetAllCountriesUseCase $useCase)
     {
-        $this->useCase = new GetAllCountriesUseCase();
+        $this->useCase = $useCase;
     }
 
     public function generate(string $country): GeneratedAnswers
