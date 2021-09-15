@@ -2,7 +2,7 @@
 
 namespace App\Http\Controllers;
 
-use App\Domain\WindyApi\UseCase\GenerateLevelUseCase;
+use App\Domain\Level\UseCase\GenerateLevelUseCase;
 use Illuminate\Contracts\View\View;
 
 class GameController extends Controller
