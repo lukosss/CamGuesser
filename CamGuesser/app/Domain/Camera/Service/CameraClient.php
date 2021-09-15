@@ -1,14 +1,14 @@
 <?php
 
 
-namespace App\Domain\WindyApi\UseCase;
+namespace App\Domain\Camera\Service;
 
 use App\Application\Camera\CameraDenormalizer;
-use App\Domain\WindyApi\Dto\Camera;
+use App\Domain\Camera\Dto\Camera;
 use App\Infrastructure\Http\Client as HttpClient;
 use Psr\Http\Message\ResponseInterface;
 
-class GetRandomCameraPlayerUseCase
+class CameraClient
 {
 
     private const BASE_URL = 'https://api.windy.com/api/webcams/v2/list';
@@ -24,15 +24,15 @@ class GetRandomCameraPlayerUseCase
         $this->apiKey = $apiKey;
     }
 
-    public function getCamera(int $randomCameraId): Camera
+    public function getCamera(int $id): Camera
     {
-        $response = $this->makeRequest($randomCameraId);
+        $response = $this->makeRequest($id);
         return $this->getCameraFromResponse($response);
     }
 
-    private function makeRequest(int $randomCameraId): ResponseInterface
+    private function makeRequest(int $id): ResponseInterface
     {
-        $endpoint = "/webcam=$randomCameraId?show=webcams:player,location";
+        $endpoint = "/webcam=$id?show=webcams:player,location";
         $options = ['headers' => ['x-windy-key' => $this->apiKey]];
         return $this->http->get(self::BASE_URL, $endpoint, $options);
     }

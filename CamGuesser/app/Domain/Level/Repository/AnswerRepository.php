@@ -1,23 +1,24 @@
 <?php
 
 
-namespace App\Domain\WindyApi\Service;
+namespace App\Domain\Level\Repository;
 
-use App\Domain\WindyApi\Dto\GeneratedAnswers;
+use App\Domain\Level\Dto\GeneratedAnswers;
+use App\Domain\Country\Service\CountryClient;
 
-class AnswerGenerator
+class AnswerRepository
 {
-    private CountriesClient $useCase;
+    private CountryClient $countryClient;
 
-    public function __construct(CountriesClient $useCase)
+    public function __construct(CountryClient $countryClient)
     {
-        $this->useCase = $useCase;
+        $this->countryClient = $countryClient;
     }
 
     public function generate(string $country): GeneratedAnswers
     {
         $numberOfWrongAnswers = 3;
-        $countryCollection = $this->useCase->getCountries()->getCountries();
+        $countryCollection = $this->countryClient->getCountryCollection()->getCountries();
         $mappedCountries = array_map(static function($o) { return $o->getName();}, $countryCollection);
         $answers = array_intersect_key($mappedCountries, array_flip(array_rand($mappedCountries, $numberOfWrongAnswers)));
 

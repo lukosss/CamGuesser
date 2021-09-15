@@ -3,8 +3,8 @@
 
 namespace App\Application\Camera;
 
-use App\Domain\WindyApi\Dto\Country;
-use App\Domain\WindyApi\Dto\CountryCollection;
+use App\Domain\Country\Dto\Country;
+use App\Domain\Country\Dto\CountryCollection;
 use Symfony\Component\Serializer\Normalizer\DenormalizerInterface;
 
 class CountryCollectionDenormalizer implements DenormalizerInterface

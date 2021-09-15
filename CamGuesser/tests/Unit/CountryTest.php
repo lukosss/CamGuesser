@@ -2,21 +2,15 @@
 
 namespace Tests\Unit;
 
-use App\Domain\WindyApi\Dto\Country;
-use App\Domain\WindyApi\Dto\CountryCollection;
-use App\Domain\WindyApi\Dto\Id;
-use App\Domain\WindyApi\Service\CountriesClient;
-use App\Domain\WindyApi\Service\IdClient;
+use App\Domain\Country\Dto\CountryCollection;
+use App\Domain\Country\Service\CountryClient;
 use PHPUnit\Framework\MockObject\MockObject;
 use Tests\TestCase;
 
 class CountryTest extends TestCase
 {
-
-    private const FAKE_RANDOM_CAMERA_ID = 1234567890;
-
     /**
-     * @var CountriesClient|MockObject
+     * @var CountryClient|MockObject
      */
     private $CountriesClient;
     private CountryCollection $countries;
@@ -27,12 +21,12 @@ class CountryTest extends TestCase
     {
         parent::setUp();
 
-        $this->CountriesClient = $this->createMock(CountriesClient::class);
-        $this->CountriesClient->expects($this->once())->method('getCountries')
+        $this->CountriesClient = $this->createMock(CountryClient::class);
+        $this->CountriesClient->expects($this->once())->method('getCountryCollection')
             ->willReturn(new CountryCollection());
 
         $this->mockCountries = new CountryCollection();
-        $this->countries = $this->CountriesClient->getCountries();
+        $this->countries = $this->CountriesClient->getCountryCollection();
 
     }
 

@@ -2,7 +2,7 @@
 
 namespace App\Application\Camera;
 
-use App\Domain\WindyApi\Dto\Camera;
+use App\Domain\Camera\Dto\Camera;
 use Symfony\Component\Serializer\Normalizer\DenormalizerInterface;
 
 class CameraDenormalizer implements DenormalizerInterface

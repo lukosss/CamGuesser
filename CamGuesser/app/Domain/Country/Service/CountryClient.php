@@ -1,15 +1,15 @@
 <?php
 
 
-namespace App\Domain\WindyApi\Service;
+namespace App\Domain\Country\Service;
 
 
 use App\Application\Camera\CountryCollectionDenormalizer;
-use App\Domain\WindyApi\Dto\CountryCollection;
+use App\Domain\Country\Dto\CountryCollection;
 use App\Infrastructure\Http\Client as HttpClient;
 use Psr\Http\Message\ResponseInterface;
 
-class CountriesClient
+class CountryClient
 {
     private const BASE_URL = 'https://api.windy.com/api/webcams/v2/list';
     private const GET_COUNTRIES_ENDPOINT = "?show=countries";
@@ -25,7 +25,7 @@ class CountriesClient
         $this->apiKey = $apiKey;
     }
 
-    public function getCountries(): CountryCollection
+    public function getCountryCollection(): CountryCollection
     {
         $response = $this->makeRequest();
         return $this->getCountriesFromResponse($response);

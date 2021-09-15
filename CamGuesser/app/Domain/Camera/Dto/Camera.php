@@ -1,7 +1,7 @@
 <?php
 
 
-namespace App\Domain\WindyApi\Dto;
+namespace App\Domain\Camera\Dto;
 
 
 class Camera
