@@ -16,8 +16,15 @@ The Largest repository of webcams worldwide - [WindyApi](https://api.windy.com/w
 
 ## Instructions
 
+Setup:
+
 First, make sure You are in the CamGuesser main folder (```CamGuesser/CamGuesser```) and run ```composer install``` to download all the dependencies.
 To do that, You will need [Composer](https://getcomposer.org/).
+
+Then make a copy of [.env.example](/CamGuesser/.env.example) and rename it to .env. Inside the new .env, at the bottom of the file, you will need to put in Your WindyApi key. 
+E.g. WINDY_API_KEY="YourApiKeyHere"
+
+Usage:
 
 1. To run this page in browser use ```php artisan serve``` terminal command.
 

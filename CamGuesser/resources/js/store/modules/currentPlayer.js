@@ -4,7 +4,9 @@ const state = {
         level: localStorage.getItem("level")
     }
 };
-const getters = {};
+const getters = {
+    getGame: (state) => state.game,
+};
 const actions = {
     updateScore({commit}) {
         let newScore = localStorage.getItem("score");
