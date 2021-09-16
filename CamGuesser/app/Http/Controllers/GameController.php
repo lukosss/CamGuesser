@@ -18,11 +18,8 @@ class GameController extends Controller
     public function index(): View
     {
         $generatedLevel = $this->useCase->generate();
-        $url = $generatedLevel->getUrl();
-        $displayedCameraCountry = $generatedLevel->getDisplayedCameraCountry();
-        $answers = $generatedLevel->getAnswers();
 
-        return view('game', compact('url', 'displayedCameraCountry', 'answers'));
+        return view('game', compact('generatedLevel'));
     }
 
 }

@@ -1,7 +1,8 @@
 <template>
     <div>
-        <div>
-            <h5>Level: {{game.level ? Number(game.level)+1 : 1}}/5 | Score: {{game.score ? game.score : 0}}</h5>
+        <div class="d-flex flex-row justify-content-center">
+            <h5>Level: {{game.level ? Number(game.level)+1 : 1}}/5 | Score: {{game.score ? game.score : 0}} <span class="text-success h6" v-if="levelStatus==='passed'">
+                (+{{ score }} points for this round)</span></h5>
         </div>
         <button v-for="answer in answers" :class="{
             disabled: selectedWrongAnswers.includes(answer),
@@ -53,14 +54,13 @@
             checkAnswer(answer) {
                 if(answer === this.correct)
                 {
-                    alert('Correct! +' + this.score + ' points');
                     localStorage.setItem("score", (this.totalScore + this.score));
                     this.levelStatus = 'passed';
                     this.disableCorrectAnswer(answer);
+                    this.$store.dispatch('currentPlayer/updateScore')
                 }
                 else
                 {
-                    alert('Wrong answer. -33 points');
                     this.score -= 33;
                     this.disableWrongAnswer(answer);
                 }

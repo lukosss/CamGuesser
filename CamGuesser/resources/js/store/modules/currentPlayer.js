@@ -6,11 +6,16 @@ const state = {
 };
 const getters = {};
 const actions = {
-    getProgress() {
-        return localStorage.getItem("score");
+    updateScore({commit}) {
+        let newScore = localStorage.getItem("score");
+        commit('SAVE_SCORE', newScore);
     }
 };
-const mutations = {};
+const mutations = {
+    SAVE_SCORE(state, newScore) {
+        state.game.score = newScore;
+    },
+};
 
 export default {
     namespaced: true,
