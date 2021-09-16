@@ -3,13 +3,12 @@
 @section('content')
 
         <div class="text-center mt-3">
-            <iframe src="{{$url}}?autoplay=1" width="860" height="480" allow="autoplay"></iframe>
-            <h1>Country: {{$displayedCameraCountry}}</h1>
+            <iframe src="{{$generatedLevel->getUrl()}}?autoplay=1" width="860" height="480" allow="autoplay"></iframe>
 
             <div id="app">
                 <game-component
-                    :answers="{{  json_encode($answers) }}"
-                    :correct="{{  json_encode($displayedCameraCountry) }}"
+                    :answers="{{  json_encode($generatedLevel->getAnswers()) }}"
+                    :correct="{{  json_encode($generatedLevel->getDisplayedCameraCountry()) }}"
                 ></game-component>
             </div>
 
