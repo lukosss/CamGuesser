@@ -10,35 +10,31 @@ use Tests\TestCase;
 class IdTest extends TestCase
 {
 
-    private const FAKE_RANDOM_CAMERA_ID = 1234567890;
+    private const FAKE_ID = 1234567890;
 
     /**
      * @var IdClient|MockObject
      */
-    private $idClient;
+    private $idMockClient;
+    private Id $idFromMockClient;
     private Id $id;
-    private Id $mockId;
 
 
     public function setUp(): void
     {
         parent::setUp();
 
-        $this->idClient = $this->createMock(IdClient::class);
-        $this->idClient->expects($this->once())->method('getId')
-            ->willReturn(new Id(self::FAKE_RANDOM_CAMERA_ID));
-
-        $this->mockId = new Id(self::FAKE_RANDOM_CAMERA_ID);
-        $this->id = $this->idClient->getId();
-
-    }
-
-    public function test_should_return_array_of_all_available_countries(): void
-    {
+        $this->idMockClient = $this->createMock(IdClient::class);
+        $this->id = new Id(self::FAKE_ID);
     }
 
     public function test_should_return_one_random_webcam_id(): void
     {
-        self::assertEquals($this->mockId, $this->id);
+        $this->idMockClient->expects($this->once())->method('getId')
+            ->willReturn(new Id(self::FAKE_ID));
+
+        $this->idFromMockClient = $this->idMockClient->getId();
+
+        self::assertEquals($this->id, $this->idFromMockClient);
     }
 }
