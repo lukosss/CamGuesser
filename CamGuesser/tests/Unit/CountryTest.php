@@ -12,26 +12,26 @@ class CountryTest extends TestCase
     /**
      * @var CountryClient|MockObject
      */
-    private $CountriesClient;
-    private CountryCollection $countries;
-    private CountryCollection $mockCountries;
+    private $CountriesClientMock;
+    private CountryCollection $countriesFromMockClient;
+    private CountryCollection $countryCollection;
 
 
     public function setUp(): void
     {
         parent::setUp();
 
-        $this->CountriesClient = $this->createMock(CountryClient::class);
-        $this->CountriesClient->expects($this->once())->method('getCountryCollection')
-            ->willReturn(new CountryCollection());
-
-        $this->mockCountries = new CountryCollection();
-        $this->countries = $this->CountriesClient->getCountryCollection();
-
+        $this->CountriesClientMock = $this->createMock(CountryClient::class);
+        $this->countryCollection = new CountryCollection();
     }
 
     public function test_should_return_collection_of_all_available_countries(): void
     {
-        self::assertEquals($this->mockCountries, $this->countries);
+        $this->CountriesClientMock->expects($this->once())->method('getCountryCollection')
+            ->willReturn(new CountryCollection());
+
+        $this->countriesFromMockClient = $this->CountriesClientMock->getCountryCollection();
+
+        self::assertEquals($this->countryCollection, $this->countriesFromMockClient);
     }
 }

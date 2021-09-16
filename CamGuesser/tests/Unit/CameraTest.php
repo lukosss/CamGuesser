@@ -10,47 +10,61 @@ use Tests\TestCase;
 class CameraTest extends TestCase
 {
 
-    private const FAKE_RANDOM_CAMERA_ID = 1234567890;
+    private const FAKE_ID = 1234567890;
 
     /**
      * @var CameraClient|MockObject
      */
-    private $cameraMock;
+    private $cameraClientMock;
+    private Camera $cameraFromMockClient;
     private Camera $camera;
-    private Camera $newCamera;
 
 
     public function setUp(): void
     {
         parent::setUp();
 
-
-        $this->cameraMock = $this->createMock(CameraClient::class);
-        $this->cameraMock->expects($this->once())->method('getCamera')
-            ->willReturn(new Camera('url', self::FAKE_RANDOM_CAMERA_ID, 'country'));
-
-        $this->newCamera = new Camera('url', self::FAKE_RANDOM_CAMERA_ID, 'country');
-        $this->camera = $this->cameraMock->getCamera(self::FAKE_RANDOM_CAMERA_ID);
+        $this->cameraClientMock = $this->createMock(CameraClient::class);
+        $this->camera = new Camera('url', self::FAKE_ID, 'country');
     }
 
     public function test_should_return_camera_object(): void
     {
+        $this->cameraClientMock->expects($this->once())->method('getCamera')
+            ->willReturn(new Camera('url', self::FAKE_ID, 'country'));
 
-        self::assertEquals($this->newCamera, $this->camera);
+        $this->cameraFromMockClient = $this->cameraClientMock->getCamera(self::FAKE_ID);
+
+        self::assertEquals($this->camera, $this->cameraFromMockClient);
     }
 
     public function test_should_return_selected_cameras_id(): void
     {
-        self::assertEquals($this->newCamera->getId(), $this->camera->getId());
+        $this->cameraClientMock->expects($this->once())->method('getCamera')
+            ->willReturn(new Camera('url', self::FAKE_ID, 'country'));
+
+        $this->cameraFromMockClient = $this->cameraClientMock->getCamera(self::FAKE_ID);
+
+        self::assertEquals($this->camera->getId(), $this->cameraFromMockClient->getId());
     }
 
     public function test_should_return_webcam_player_embed_link(): void
     {
-        self::assertEquals($this->newCamera->getUrl(), $this->camera->getUrl());
+        $this->cameraClientMock->expects($this->once())->method('getCamera')
+            ->willReturn(new Camera('url', self::FAKE_ID, 'country'));
+
+        $this->cameraFromMockClient = $this->cameraClientMock->getCamera(self::FAKE_ID);
+
+        self::assertEquals($this->camera->getUrl(), $this->cameraFromMockClient->getUrl());
     }
 
     public function test_should_return_displayed_cameras_country(): void
     {
-        self::assertEquals($this->newCamera->getCountry(), $this->camera->getCountry());
+        $this->cameraClientMock->expects($this->once())->method('getCamera')
+            ->willReturn(new Camera('url', self::FAKE_ID, 'country'));
+
+        $this->cameraFromMockClient = $this->cameraClientMock->getCamera(self::FAKE_ID);
+
+        self::assertEquals($this->camera->getCountry(), $this->cameraFromMockClient->getCountry());
     }
 }
