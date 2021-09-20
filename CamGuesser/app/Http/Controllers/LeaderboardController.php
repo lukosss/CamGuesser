@@ -14,7 +14,7 @@ class LeaderboardController extends Controller
         return view('leaderboard',compact('leaderboard'));
     }
 
-    public function uploadScore(Request $request): Leaderboard
+    public function update(Request $request): Leaderboard
     {
         $newScore = new Leaderboard();
         $newScore->player_name = $request->post['player_name'];

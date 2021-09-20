@@ -15,9 +15,16 @@ class FeatureTest extends TestCase
         $response->assertStatus(200);
     }
 
-    public function test_game_page_can_be_rendered()
+    public function test_classic_game_page_can_be_rendered()
     {
-        $response = $this->get('/play');
+        $response = $this->get('/classic-mode');
+
+        $response->assertStatus(200);
+    }
+
+    public function test_europe_game_page_can_be_rendered()
+    {
+        $response = $this->get('/europe-mode');
 
         $response->assertStatus(200);
     }
