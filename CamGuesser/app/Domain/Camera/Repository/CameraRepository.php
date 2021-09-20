@@ -20,9 +20,9 @@ class CameraRepository
         $this->camera = $camera;
     }
 
-    public function getCamera(string $endpoint): Camera
+    public function getCamera(string $idEndpoint): Camera
     {
-        $camera = $this->camera->getCamera($this->id->getId($endpoint)->getId());
+        $camera = $this->camera->getCamera($this->id->getId($idEndpoint)->getId());
         return new Camera($camera->getUrl(), $camera->getId(), $camera->getCountry());
     }
 

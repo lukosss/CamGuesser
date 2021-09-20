@@ -8,7 +8,7 @@ use App\Domain\Level\Repository\AnswerRepository;
 
 class GenerateLevelUseCase
 {
-    private const GET_ID_ENDPOINT = "/orderby=random/limit=1";
+    private const ID_ENDPOINT = "/orderby=random/limit=1";
 
     private CameraRepository $cameraRepository;
     private AnswerRepository $answerRepository;
@@ -21,7 +21,7 @@ class GenerateLevelUseCase
 
     public function generate(): GeneratedLevel
     {
-        $camera = $this->cameraRepository->getCamera(self::GET_ID_ENDPOINT);
+        $camera = $this->cameraRepository->getCamera(self::ID_ENDPOINT);
         $url = $camera->getUrl();
         $displayedCameraCountry = $camera->getCountry();
         $answers = $this->answerRepository->generate($displayedCameraCountry)->getAnswers();
