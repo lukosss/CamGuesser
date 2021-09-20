@@ -33,7 +33,7 @@ class IdTest extends TestCase
         $this->idMockClient->expects($this->once())->method('getId')
             ->willReturn(new Id(self::FAKE_ID));
 
-        $this->idFromMockClient = $this->idMockClient->getId();
+        $this->idFromMockClient = $this->idMockClient->getId('fakeendpoint');
 
         self::assertEquals($this->id, $this->idFromMockClient);
     }

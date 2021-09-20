@@ -12,7 +12,6 @@ class IdClient
 {
 
     private const BASE_URL = 'https://api.windy.com/api/webcams/v2/list';
-    private const GET_ID_ENDPOINT = "/orderby=random/limit=1";
 
     private IdDenormalizer $denormalizer;
     private HttpClient $http;
@@ -25,16 +24,16 @@ class IdClient
         $this->apiKey = $apiKey;
     }
 
-    public function getId(): Id
+    public function getId(string $endpoint): Id
     {
-        $response = $this->makeRequest();
+        $response = $this->makeRequest($endpoint);
         return $this->getIdFromResponse($response);
     }
 
-    private function makeRequest(): ResponseInterface
+    private function makeRequest(string $endpoint): ResponseInterface
     {
         $options = ['headers' => ['x-windy-key' => $this->apiKey]];
-        return $this->http->get(self::BASE_URL, self::GET_ID_ENDPOINT, $options);
+        return $this->http->get(self::BASE_URL, $endpoint, $options);
     }
 
     private function getIdFromResponse(ResponseInterface $response): Id

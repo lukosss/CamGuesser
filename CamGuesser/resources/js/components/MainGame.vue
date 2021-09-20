@@ -100,8 +100,8 @@
                     this.$refs['my-modal'].show()
                 }
                 else {
-                localStorage.setItem("level", this.level)
-                window.location.href = '/play';
+                localStorage.setItem("level", this.level);
+                window.location.reload()
                 }
             },
             reset() {

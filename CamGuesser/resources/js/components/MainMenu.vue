@@ -14,7 +14,7 @@
                 text-variant="white"
                 title="Guess the country"
             >
-                <b-btn variant="outline-light" class="mt-2 mb-1" @click="beginGame()">Start guessing</b-btn>
+                <b-btn variant="outline-light" class="mt-2 mb-1" @click="beginGameClassic()">Start guessing</b-btn>
                 <b-card-text>
                     The original mode where you need to guess the country of a random camera from anywhere in the world.
                     You will have 4 options, but you will have to guess the correct one.
@@ -28,7 +28,7 @@
                 text-variant="white"
                 title="Guess the country, EU"
             >
-                <b-btn variant="outline-light" class="mt-2 mb-1" @click="beginGame()">Start guessing</b-btn>
+                <b-btn variant="outline-light" class="mt-2 mb-1" @click="beginGameEU()">Start guessing</b-btn>
                 <b-card-text>
                     Almost the same as original, but the cameras are only picked from Europe.
                     You will have 4 options, but you will have to guess the correct one.
@@ -41,7 +41,7 @@
                 text-variant="white"
                 title="Guess the state, US"
             >
-                <b-btn variant="outline-light" class="mt-2 mb-1" @click="beginGame()">Start guessing</b-btn>
+                <b-btn variant="outline-light" class="mt-2 mb-1" @click="beginGameEU()">Start guessing</b-btn>
                 <b-card-text>
                     In this mode you will only see cameras from USA and you will need to guess what state they are from.
                     You will have 4 options, but you will have to guess the correct one.
@@ -55,8 +55,11 @@
 <script>
 export default {
     methods: {
-        beginGame() {
-            window.location.href = '/play';
+        beginGameClassic() {
+            window.location.href = '/classic-mode';
+        },
+        beginGameEU() {
+            window.location.href = '/europe-mode';
         }
     }
 }

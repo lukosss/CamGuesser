@@ -1,5 +1,6 @@
 <?php
 
+use App\Http\Controllers\EUGameController;
 use App\Http\Controllers\GameController;
 use App\Http\Controllers\HomeController;
 use App\Http\Controllers\LeaderboardController;
@@ -17,6 +18,7 @@ use Illuminate\Support\Facades\Route;
 */
 
 Route::get('/', [HomeController::class, 'index']);
-Route::get('/play', [GameController::class, 'index']);
-Route::post('/play/upload', [LeaderboardController::class, 'uploadScore']);
+Route::get('/classic-mode', [GameController::class, 'index']);
+Route::get('/europe-mode', [EUGameController::class, 'index']);
+Route::post('/leaderboard', [LeaderboardController::class, 'update']);
 Route::get('/leaderboard', [LeaderboardController::class, 'index']);
