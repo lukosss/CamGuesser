@@ -1,7 +1,7 @@
 <?php
 
 
-namespace App\Application\Camera;
+namespace App\Application\Country\Serializer\Denormalizer;
 
 use App\Domain\Country\Dto\Country;
 use Symfony\Component\Serializer\Normalizer\DenormalizerInterface;

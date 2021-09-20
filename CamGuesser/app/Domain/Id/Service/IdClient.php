@@ -1,9 +1,9 @@
 <?php
 
-namespace App\Domain\WindyApi\Service;
+namespace App\Domain\Id\Service;
 
-use App\Application\Camera\IdDenormalizer;
-use App\Domain\WindyApi\Dto\Id;
+use App\Application\Id\Serializer\Denormalizer\IdDenormalizer;
+use App\Domain\Id\Dto\Id;
 use App\Infrastructure\Http\Client as HttpClient;
 use Psr\Http\Message\ResponseInterface;
 

@@ -4,7 +4,7 @@
 namespace App\Domain\Country\Service;
 
 
-use App\Application\Camera\CountryCollectionDenormalizer;
+use App\Application\Country\Serializer\Denormalizer\CountryCollectionDenormalizer;
 use App\Domain\Country\Dto\CountryCollection;
 use App\Infrastructure\Http\Client as HttpClient;
 use Psr\Http\Message\ResponseInterface;

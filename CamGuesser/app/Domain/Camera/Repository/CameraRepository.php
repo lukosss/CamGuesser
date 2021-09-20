@@ -4,7 +4,7 @@
 namespace App\Domain\Camera\Repository;
 
 use App\Domain\Camera\Dto\Camera;
-use App\Domain\WindyApi\Service\IdClient;
+use App\Domain\Id\Service\IdClient;
 use App\Domain\Camera\Service\CameraClient;
 
 class CameraRepository

@@ -1,9 +1,9 @@
 <?php
 
 
-namespace App\Application\Camera;
+namespace App\Application\Id\Serializer\Denormalizer;
 
-use App\Domain\WindyApi\Dto\Id;
+use App\Domain\Id\Dto\Id;
 use Symfony\Component\Serializer\Normalizer\DenormalizerInterface;
 
 class IdDenormalizer implements DenormalizerInterface

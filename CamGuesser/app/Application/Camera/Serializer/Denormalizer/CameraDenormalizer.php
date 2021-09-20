@@ -1,6 +1,6 @@
 <?php
 
-namespace App\Application\Camera;
+namespace App\Application\Camera\Serializer\Denormalizer;
 
 use App\Domain\Camera\Dto\Camera;
 use Symfony\Component\Serializer\Normalizer\DenormalizerInterface;

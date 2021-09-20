@@ -4,7 +4,7 @@ namespace App\Providers;
 
 use App\Domain\Camera\Service\CameraClient;
 use App\Domain\Country\Service\CountryClient;
-use App\Domain\WindyApi\Service\IdClient;
+use App\Domain\Id\Service\IdClient;
 use Illuminate\Support\ServiceProvider;
 
 class AppServiceProvider extends ServiceProvider

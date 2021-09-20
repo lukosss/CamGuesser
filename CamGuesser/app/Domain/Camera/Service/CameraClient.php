@@ -3,7 +3,7 @@
 
 namespace App\Domain\Camera\Service;
 
-use App\Application\Camera\CameraDenormalizer;
+use App\Application\Camera\Serializer\Denormalizer\CameraDenormalizer;
 use App\Domain\Camera\Dto\Camera;
 use App\Infrastructure\Http\Client as HttpClient;
 use Psr\Http\Message\ResponseInterface;

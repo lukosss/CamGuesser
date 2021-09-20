@@ -2,8 +2,8 @@
 
 namespace Tests\Unit;
 
-use App\Domain\WindyApi\Dto\Id;
-use App\Domain\WindyApi\Service\IdClient;
+use App\Domain\Id\Dto\Id;
+use App\Domain\Id\Service\IdClient;
 use PHPUnit\Framework\MockObject\MockObject;
 use Tests\TestCase;
 
