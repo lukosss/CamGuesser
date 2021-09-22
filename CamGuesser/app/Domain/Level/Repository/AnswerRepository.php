@@ -18,17 +18,39 @@ class AnswerRepository
     public function generate(string $country): GeneratedAnswers
     {
         $numberOfWrongAnswers = 3;
-        $countryCollection = $this->countryClient->getCountryCollection()->getCountries();
-        $mappedCountries = array_map(static function($o) { return $o->getName();}, $countryCollection);
-        $answers = array_intersect_key($mappedCountries, array_flip(array_rand($mappedCountries, $numberOfWrongAnswers)));
-
-        while (in_array($country, $answers, true)) {
-            $answers = array_intersect_key($mappedCountries, array_flip(array_rand($mappedCountries, $numberOfWrongAnswers)));
-        }
-
+        $answers = $this->collectAnswers($numberOfWrongAnswers, $country);
         $answers[] = $country;
         shuffle($answers);
 
         return new GeneratedAnswers($answers);
+    }
+
+    private function checkIfAnswersHaveDuplicatesAndReplace(string $country, array $answers, array $mappedCountries, int $numberOfWrongAnswers): array
+    {
+        while (in_array($country, $answers, true)) {
+            $answers = $this->pickRandomAnswers($mappedCountries, $numberOfWrongAnswers);
+        }
+        return $answers;
+    }
+
+    private function pickRandomAnswers(array $countryArray, int $numberOfWrongAnswers): array
+    {
+        return array_intersect_key($countryArray, array_flip(array_rand($countryArray, $numberOfWrongAnswers)));
+    }
+
+    private function mapCollectionToArray(array $countryCollection): array
+    {
+        return array_map(static function ($country) {
+            return $country->getName();
+        }, $countryCollection);
+    }
+
+    private function collectAnswers(int $numberOfWrongAnswers, string $correctCountry): array
+    {
+        $countryCollection = $this->countryClient->getCountryCollection()->getCountries();
+        $mappedCountries = $this->mapCollectionToArray($countryCollection);
+        $answers = $this->pickRandomAnswers($mappedCountries, $numberOfWrongAnswers);
+        $answers = $this->checkIfAnswersHaveDuplicatesAndReplace($correctCountry, $answers, $mappedCountries, $numberOfWrongAnswers);
+        return $answers;
     }
 }
